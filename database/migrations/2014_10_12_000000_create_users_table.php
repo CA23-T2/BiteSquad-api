@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('profile_picture')
+                ->default('https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg');
             $table->enum('role', ['Employee', 'Admin'])->default('Employee');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
