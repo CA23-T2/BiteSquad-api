@@ -66,7 +66,10 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             $user = Auth::user();
+
             $token = $user->createToken(Str::random(40))->plainTextToken;
+
+            $user->update();
 
             return new JsonResponse([
                 "success" => true,
