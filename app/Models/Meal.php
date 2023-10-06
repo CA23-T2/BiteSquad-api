@@ -16,4 +16,10 @@ class Meal extends Model
         'image_url',
         'dietary_restrictions',
     ];
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'meal_order')
+            ->withPivot('quantity');
+    }
 }
