@@ -11,9 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'meal_id',
         'order_date',
-        'quantity',
         'status',
         'delivery_date_time',
     ];
