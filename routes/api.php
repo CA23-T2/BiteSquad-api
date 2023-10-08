@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MealController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(MealController::class)->group(function () {
         Route::get('meals', 'index')->name('api-meals-index');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('orders', 'index')->name('api-orders-index');
+        Route::get('orders/{id}', 'show')->name('api-orders-show');
+        Route::post('orders/new', 'store')->name('api-orders-store');
     });
 });
 

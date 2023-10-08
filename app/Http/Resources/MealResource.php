@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class MealResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,11 @@ class UserResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "username" => $this->username,
-            "name" => $this->first_name . " " . $this->last_name,
-            "email" => $this->email,
-            "profile_picture" => $this->profile_picture,
-            "role" => $this->role,
-            "created_at" => Carbon::parse($this->created_at)->toDateTimeString(),
+            "meal_name" => $this->meal_name,
+            "description" => $this->description,
+            "price" => $this->price,
+            "image_url" => $this->image_url,
+            "dietary_restrictions" => $this->dietary_restrictions
         ];
     }
 }
