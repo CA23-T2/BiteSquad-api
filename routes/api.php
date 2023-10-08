@@ -40,7 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('orders', 'index')->name('api-orders-index');
         Route::get('orders/{id}', 'show')->name('api-orders-show');
+        Route::patch('orders/edit/{id}', 'update')->name('api-orders-update');
         Route::post('orders/new', 'store')->name('api-orders-store');
+        Route::delete('orders/{id}', 'destroy')->name('api-orders-destroy');
+
     });
 });
 

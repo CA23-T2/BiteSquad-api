@@ -17,11 +17,18 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = $request->user()->orders;
+        $orders = OrderResource::collection($request->user()->orders);
+
+        if(sizeof($orders) === 0) {
+            return new JsonResponse([
+                "success" => false,
+                "message" => "You don't have any orders yet."
+            ]);
+        }
 
         return new JsonResponse([
             "success" => true,
-            "data" => OrderResource::collection($orders),
+            "data" => $orders,
             "message" => "Orders fetched successfully."
         ]);
     }
@@ -31,6 +38,16 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // Uncomment to enable time restriction for orders
+//        if(intval(date('H')) >= 9) {
+//
+//            return new JsonResponse([
+//                "success" => false,
+//                "data" => [],
+//                "message" => "Sorry, orders are closed for today, please order before 9 AM."
+//            ]);
+//        }
+
         $user = $request->user();
 
         $order = new Order([
@@ -60,14 +77,14 @@ class OrderController extends Controller
     {
         $orders = $request->user()->orders;
 
-
         $foundOrder = $orders->where('id', $id)->first();
 
         if (!empty($foundOrder)) {
+
             return new JsonResponse([
                 "success" => true,
                 "data" => new OrderResource($foundOrder),
-                "message" => "Orders fetched successfully."
+                "message" => "Order fetched successfully."
             ]);
 
         } else {
@@ -76,7 +93,7 @@ class OrderController extends Controller
                 "success" => false,
                 "data" => [],
                 "message" => "Order not found, it either does not exist or does not belong to you."
-            ]);
+            ], 404);
         }
     }
 
@@ -85,14 +102,76 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Uncomment to enable time restriction for orders
+//        if(intval(date('H')) >= 9) {
+//
+//            return new JsonResponse([
+//                "success" => false,
+//                "data" => [],
+//                "message" => "Sorry, orders are closed for today, please order before 9 AM."
+//            ]);
+//        }
+
+        $orders = $request->user()->orders;
+
+        $foundOrder = $orders->where('id', $id)->first();
+
+        if (!empty($foundOrder)) {
+
+            $foundOrder->meals()->detach();
+
+            foreach ($request->meals as $index => $mealId) {
+                $meal = Meal::find($mealId);
+
+                if ($meal) {
+                    $foundOrder->meals()->attach($meal, ['quantity' => $request->quantities[$index]]);
+                }
+            }
+
+            return new JsonResponse([
+                "success" => true,
+                "data" => [],
+                "message" => "Order edited successfully."
+            ]);
+
+        } else {
+
+            return new JsonResponse([
+                "success" => false,
+                "data" => [],
+                "message" => "Order not found, it either does not exist or does not belong to you."
+            ], 404);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $orders = $request->user()->orders;
+
+        $foundOrder = $orders->where('id', $id)->first();
+
+
+
+        if (!empty($foundOrder)) {
+
+            $foundOrder->delete();
+
+            return new JsonResponse([
+                "success" => true,
+                "data" => [],
+                "message" => "Order deleted successfully."
+            ]);
+
+        } else {
+
+            return new JsonResponse([
+                "success" => false,
+                "data" => [],
+                "message" => "Order not found, it either does not exist or does not belong to you."
+            ], 404);
+        }
     }
 }
