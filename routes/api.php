@@ -35,6 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(MealController::class)->group(function () {
         Route::get('meals', 'index')->name('api-meals-index');
+        Route::get('meals/{id}', 'show')->name('api-meals-show');
+
     });
 
     Route::controller(OrderController::class)->group(function () {
