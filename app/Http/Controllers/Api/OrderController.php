@@ -48,11 +48,13 @@ class OrderController extends Controller
 //            ]);
 //        }
 
+//        dd($request->delivery_date);
+
         $user = $request->user();
 
         $order = new Order([
-            'order_date' => now(),
             'status' => 'Pending',
+            'delivery_date' => $request->delivery_date
         ]);
 
         $user->orders()->save($order);
@@ -118,6 +120,9 @@ class OrderController extends Controller
 
         if (!empty($foundOrder)) {
 
+            $foundOrder->delivery_date = $request->delivery_date;
+            $foundOrder->update();
+
             $foundOrder->meals()->detach();
 
             foreach ($request->meals as $index => $mealId) {
@@ -152,8 +157,6 @@ class OrderController extends Controller
         $orders = $request->user()->orders;
 
         $foundOrder = $orders->where('id', $id)->first();
-
-
 
         if (!empty($foundOrder)) {
 

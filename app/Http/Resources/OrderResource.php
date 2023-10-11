@@ -20,9 +20,11 @@ class OrderResource extends JsonResource
             "id" => $this->id,
             "user" => new UserResource(User::find($this->user_id)),
             "meals" => OrderedMealResource::collection($this->meals),
-            "order_date" => $this->order_date,
             "status" => $this->status,
-            "delivery_date_time" => $this->delivery_date_time,
+            "delivery_date" => [
+                Carbon::parse($this->delivery_date)->shortRelativeToNowDiffForHumans(),
+                Carbon::parse($this->delivery_date)->format('m/d/Y')
+            ],
             "created_at" => Carbon::parse($this->created_at)->toDateTimeString()
         ];
     }
