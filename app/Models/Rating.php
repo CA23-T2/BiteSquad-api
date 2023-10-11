@@ -14,7 +14,6 @@ class Rating extends Model
         'meal_id',
         'rating',
         'feedback_comments',
-        'date',
     ];
 
     public function user()

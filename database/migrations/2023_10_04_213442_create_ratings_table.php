@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('meal_id')->constrained();
             $table->integer('rating')->nullable(false);
             $table->text('feedback_comments')->nullable();
-            $table->date('date')->nullable(false);
             $table->timestamps();
         });
     }
