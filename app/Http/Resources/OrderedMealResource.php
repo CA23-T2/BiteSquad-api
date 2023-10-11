@@ -15,13 +15,13 @@ class OrderedMealResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-        "id" => $this->id,
-        "meal_name" => $this->meal_name,
-        "description" => $this->description,
-        "quantity" => $this->pivot->quantity,
-        "price" => $this->price,
-        "image_url" => $this->image_url,
-        "dietary_restrictions" => $this->dietary_restrictions
-    ];
+            "id" => $this->id,
+            "meal_name" => $this->meal_name,
+            "description" => $this->description,
+            "quantity" => $this->pivot->quantity,
+            "price" => $this->price,
+            "image_url" => $this->image_url,
+            "dietary_restrictions" => $this->dietary_restrictions
+        ];
     }
 }

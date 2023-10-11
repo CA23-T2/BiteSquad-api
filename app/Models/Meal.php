@@ -22,4 +22,8 @@ class Meal extends Model
         return $this->belongsToMany(Order::class, 'meal_order')
             ->withPivot('quantity');
     }
+
+    public function ratings() {
+        return $this->hasMany(Rating::class);
+    }
 }

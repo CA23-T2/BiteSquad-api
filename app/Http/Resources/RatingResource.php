@@ -2,12 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Meal;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class RatingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,13 +20,13 @@ class OrderResource extends JsonResource
         return [
             "id" => $this->id,
             "user" => new UserResource(User::find($this->user_id)),
-            "meals" => OrderedMealResource::collection($this->meals),
-            "status" => $this->status,
-            "delivery_date" => [
-                Carbon::parse($this->delivery_date)->shortRelativeToNowDiffForHumans(),
-                Carbon::parse($this->delivery_date)->format('m/d/Y')
-            ],
-            "created_at" => Carbon::parse($this->created_at)->toDateTimeString()
+            "meal" => new MealResource(Meal::find($this->meal_id)),
+            "rating" => $this->rating,
+            "feedback_comments" => $this->feedback_comments,
+            "created_at" => [
+                Carbon::parse($this->created_at)->format("m-d-Y"),
+                Carbon::parse($this->created_at)->shortRelativeToNowDiffForHumans()
+            ]
         ];
     }
 }
