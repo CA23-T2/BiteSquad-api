@@ -300,19 +300,34 @@ return [
         // Sidebar items:
 
         [
-            'text'        => 'Home',
+            'header' => 'DASHBOARD',
+        ],
+
+        [
+            'text'        => 'Početak',
             'url'         => '/home',
             'icon'        => 'far fa-fw fa fa-home',
         ],
         [
-            'text'        => 'Orders',
+            'text'        => 'Narudžbine',
             'url'         => '/orders',
             'icon'        => 'far fa-fw fa fa-cubes',
         ],
         [
-            'text'        => 'Meals',
-            'url'         => '/meals',
+            'text'        => 'Obroci',
             'icon'        => 'far fa-fw fa fa-utensils',
+            'submenu' => [
+                [
+                    'text'        => 'Novi obrok',
+                    'url'         => '/meals',
+                    'icon'        => 'far fa-fw fa fa-list',
+                ],
+                [
+                    'text' => 'New meal',
+                    'url' => '/meals/new',
+                    'icon' => 'far fa-fw fa fa-plus',
+                ]
+            ]
         ],
         [
             'text'        => 'Users',

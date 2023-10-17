@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Meal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Yajra\DataTables\Facades\DataTables;
 
 class MealController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        //
+        $meals = Meal::all();
+
+        return view('admin.meals.index', compact('meals'));
     }
 
     /**
