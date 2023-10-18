@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('profile_picture')
                 ->default('https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg');
-            $table->enum('role', ['Employee', 'Admin'])->default('Employee');
+            $table->enum('role', ['Guest', 'CompanyEmployee', 'Employee', 'CompanyAdmin', 'SuperAdmin'])->default('Guest');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -31,7 +32,7 @@ return new class extends Migration
         $admin = new User([
             'username' => 'Administrator',
             'email' => 'admin@example.com',
-            'role' => 'Admin',
+            'role' => 'SuperAdmin',
             'first_name' => 'Lorem',
             'last_name' => 'Ipsum',
             'password' => Hash::make('tinjalica123'),

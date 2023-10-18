@@ -339,6 +339,11 @@ return [
             'url'         => '/reviews',
             'icon'        => 'far fa-fw fa fa-star',
         ],
+        [
+            'text'        => 'Companies',
+            'url'         => '/companies',
+            'icon'        => 'far fa-fw fa fa-building',
+        ],
     ],
 
     /*
