@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MealCategoryController;
 use App\Http\Controllers\Api\MealController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RatingController;
@@ -32,6 +33,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('users/update', 'update')->name('api-users-update');
         Route::get('users/{id}', 'show')->name('api-users-show');
         Route::delete('users', 'destroy')->name('api-users-destroy');
+    });
+
+    Route::controller(MealCategoryController::class)->group(function () {
+        Route::get('meals/categories', 'index')->name('api-categories-index');
+        Route::get('meals/categories/{id}', 'show')->name('api-categories-show');
     });
 
     Route::controller(RatingController::class)->group(function () {

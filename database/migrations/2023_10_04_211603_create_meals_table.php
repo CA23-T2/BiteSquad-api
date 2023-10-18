@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->string('image_url', 255)->nullable();
             $table->string('dietary_restrictions', 255)->nullable();
+            $table->foreignId('category_id')->constrained('meal_categories');
             $table->timestamps();
         });
     }

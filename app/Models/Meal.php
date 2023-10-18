@@ -15,15 +15,20 @@ class Meal extends Model
         'price',
         'image_url',
         'dietary_restrictions',
+        'category_id'
     ];
 
-    public function orders()
-    {
+    public function orders(){
+
         return $this->belongsToMany(Order::class, 'meal_order')
             ->withPivot('quantity');
     }
 
     public function ratings() {
         return $this->hasMany(Rating::class);
+    }
+
+    public function category() {
+        return $this->belongsTo(MealCategory::class);
     }
 }
