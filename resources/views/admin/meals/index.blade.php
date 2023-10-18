@@ -2,18 +2,26 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesResponsive', true)
 
-@section('title_prefix', 'Meals - ')
+@section('title_prefix', 'Obroci - ')
 
 @section('content_header')
-    <h1>Meals</h1>
+    <h1>Obroci</h1>
 @stop
 
 
 @section('content')
-    <form id="sumbitDelete" action="" method="post" hidden="">
-        @csrf
-        @method('DELETE')
-    </form>
+{{--delete modal--}}
+
+
+    <div class="my-3">
+        <a href="{{route('meals-create')}}">
+            <button type="button" class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                <span>Novi obrok</span>
+            </button>
+        </a>
+    </div>
+
     <table id="datatable" class="table table-striped table-bordered"
            style="width:100%">
         <thead>
@@ -37,7 +45,27 @@
 
                         <a href="{{route('meals-show', $meal)}}"
                            class="btn btn-outline-primary ml-2 mr-2"><i class="fas fa-eye"></i></a>
+                        <a href="{{route('meals-edit', $meal)}}"
+                           class="btn btn-outline-success ml-2 mr-2"><i class="fas fa-edit"></i></a>
 
+                        <x-adminlte-modal id="deleteModal-{{$meal->id}}" title="Brisanje obroka"  theme="danger"
+                                          icon="fas fa-trash" v-centered static-backdrop scrollable>
+                            <form action="{{route('meals-destroy', $meal->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <div>Da li ste sigurni da želite da obrišete obrok?</div>
+                                <x-slot name="footerSlot">
+                                    <button class="btn btn-danger mr-auto" type="submit">
+                                        <div class="fa fa-trash"></div>
+                                        <span>Da</span>
+                                    </button>
+                                    {{--              TODO:fix this--}}
+                                    <x-adminlte-button type="button" theme="secondary" label="Ne" data-dismiss="modal"/>
+                                </x-slot>
+                            </form>
+                        </x-adminlte-modal>
+
+                        <button class="btn btn-outline-danger ml-2 mr-2" data-toggle="modal" data-target="#deleteModal-{{$meal->id}}"><i class="fa fa-trash"></i></button>
                     </div>
                 </td>
             </tr>
@@ -46,6 +74,9 @@
         <tfoot>
         <tr>
             <th>Name</th>
+            <th>Opis</th>
+            <th>Cijena</th>
+            <th>Karakteristike</th>
             <th>Options</th>
         </tr>
         </tfoot>

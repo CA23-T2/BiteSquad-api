@@ -318,12 +318,12 @@ return [
             'icon'        => 'far fa-fw fa fa-utensils',
             'submenu' => [
                 [
-                    'text'        => 'Novi obrok',
+                    'text'        => 'Lista obroka',
                     'url'         => '/meals',
                     'icon'        => 'far fa-fw fa fa-list',
                 ],
                 [
-                    'text' => 'New meal',
+                    'text' => 'Novi obrok',
                     'url' => '/meals/new',
                     'icon' => 'far fa-fw fa fa-plus',
                 ]

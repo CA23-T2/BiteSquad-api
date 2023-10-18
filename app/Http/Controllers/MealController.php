@@ -25,7 +25,8 @@ class MealController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.meals.create');
     }
 
     /**
@@ -33,7 +34,9 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Meal::create($request->all());
+
+        return redirect()->route('meals-index');
     }
 
     /**
@@ -41,7 +44,8 @@ class MealController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+        return view('admin.meals.show', compact('meal'));
     }
 
     /**
@@ -49,7 +53,8 @@ class MealController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+        return view('admin.meals.edit', compact('meal'));
     }
 
     /**
@@ -57,7 +62,9 @@ class MealController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+        $meal->update($request->all());
+        return redirect()->route('meals-show', $id);
     }
 
     /**
@@ -65,6 +72,8 @@ class MealController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+        $meal->delete();
+        return redirect()->route('meals-index');
     }
 }

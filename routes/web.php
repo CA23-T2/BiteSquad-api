@@ -35,9 +35,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(MealController::class)->group(function () {
         Route::get('meals', 'index')->name('meals-index');
-        Route::post('meals/new', 'store')->name('meals-store');
-        Route::post('meals/update/{id}', 'update')->name('meals-update');
+        Route::get('meals/new', 'create')->name('meals-create');
         Route::get('meals/{id}', 'show')->name('meals-show');
-        Route::delete('meals', 'destroy')->name('meals-destroy');
+        Route::get('meals/edit/{id}', 'edit')->name('meals-edit');
+        Route::post('meals/update/{id}', 'update')->name('meals-update');
+        Route::post('meals/new', 'store')->name('meals-store');
+        Route::delete('meals/{id}', 'destroy')->name('meals-destroy');
     });
 });
