@@ -26,6 +26,7 @@
            style="width:100%">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Opis</th>
             <th>Cijena</th>
@@ -36,6 +37,7 @@
         <tbody>
         @foreach($meals as $meal)
             <tr>
+                <td>{{$meal->id}}</td>
                 <td>{{$meal->meal_name}}</td>
                 <td>{{$meal->description}}</td>
                 <td>{{$meal->price}}</td>
@@ -54,14 +56,17 @@
                                 @csrf
                                 @method('DELETE')
                                 <div>Da li ste sigurni da želite da obrišete obrok?</div>
-                                <x-slot name="footerSlot">
+
+                                <div class="d-flex justify-content-between">
                                     <button class="btn btn-danger mr-auto" type="submit">
                                         <div class="fa fa-trash"></div>
                                         <span>Da</span>
                                     </button>
-                                    {{--              TODO:fix this--}}
+
                                     <x-adminlte-button type="button" theme="secondary" label="Ne" data-dismiss="modal"/>
-                                </x-slot>
+                                </div>
+
+                                <x-slot name="footerSlot"></x-slot>
                             </form>
                         </x-adminlte-modal>
 
@@ -73,6 +78,7 @@
         </tbody>
         <tfoot>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Opis</th>
             <th>Cijena</th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class MealController extends Controller
@@ -34,7 +35,14 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        Meal::create($request->all());
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos');
+            $meal = new Meal($request->all());
+            $meal->image_url = $path;
+            $meal->save();
+        } else {
+            Meal::create($request->all());
+        }
 
         return redirect()->route('meals-index');
     }
@@ -63,7 +71,23 @@ class MealController extends Controller
     public function update(Request $request, string $id)
     {
         $meal = Meal::findOrFail($id);
-        $meal->update($request->all());
+
+        if ($request->hasFile('photo')) {
+
+            $path = $request->file('photo')->store('photos');
+            Storage::delete($meal->image_url);
+
+            $meal->image_url = $path;
+            $meal->meal_name = $request->meal_name;
+            $meal->description = $request->description;
+            $meal->price = $request->price;
+            $meal->dietary_restrictions = $request->dietary_restrictions;
+
+            $meal->update();
+        } else {
+            $meal->update($request->all());
+        }
+
         return redirect()->route('meals-show', $id);
     }
 
@@ -73,6 +97,7 @@ class MealController extends Controller
     public function destroy(string $id)
     {
         $meal = Meal::findOrFail($id);
+        Storage::delete($meal->image_url);
         $meal->delete();
         return redirect()->route('meals-index');
     }
