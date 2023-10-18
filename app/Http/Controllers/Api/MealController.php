@@ -16,9 +16,9 @@ class MealController extends Controller
         $meals = Meal::paginate(10);
 
         return new JsonResponse([
-            "success" => false,
+            "success" => true,
             "message" => "Successfuly fetched meal list.",
-            "data" => [MealResource::collection($meals)]
+            "data" => [$meals]
         ]);
     }
 
@@ -27,7 +27,7 @@ class MealController extends Controller
         $meal = Meal::find($id);
 
         return new JsonResponse([
-            "success" => false,
+            "success" => true,
             "message" => "Successfuly fetched the meal.",
             "data" => [new MealResource($meal)]
         ]);
