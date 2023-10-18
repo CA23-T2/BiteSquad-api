@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MealCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Meal;
@@ -14,17 +15,36 @@ class MealSeeder extends Seeder
      */
     public function run()
     {
+        $categories = ['Topla jela', 'Dezerti', 'Salate', 'Hladna jela', 'Brza hrana'];
+
+        for ($i = 1; $i <= 5; $i++) {
+
+            $faker = Faker::create();
+
+
+            MealCategory::create([
+                "name" => $categories[$i - 1],
+                "description" => $faker->sentence,
+            ]);
+        }
+
         for ($i = 1; $i <= 50; $i++) {
 
             $faker = Faker::create();
 
-            Meal::create([
+
+            $meal = new Meal([
                 "meal_name" => implode(' ', $faker->words(3)),
                 "description" => $faker->sentence,
                 "price" => $faker->randomFloat(2, 0.01, 29.99),
                 "image_url" => "https://fakeimg.pl/600x400",
                 "dietary_restrictions" => implode(', ', $faker->words(5))
             ]);
+
+            $meal->category()->associate(random_int(1,5));
+            $meal->save();
+
+
         }
     }
 }
