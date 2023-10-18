@@ -6,20 +6,23 @@
 
 @section('content')
 
-    <x-adminlte-modal id="deleteModal" title="Brisanje obroka"  theme="danger"
+    <x-adminlte-modal id="deleteModal-{{$meal->id}}" title="Brisanje obroka"  theme="danger"
                       icon="fas fa-trash" v-centered static-backdrop scrollable>
-        <form action="{{route('meals-destroy', $meal)}}" method="post">
+        <form action="{{route('meals-destroy', $meal->id)}}" method="post">
             @csrf
             @method('DELETE')
             <div>Da li ste sigurni da želite da obrišete obrok?</div>
-            <x-slot name="footerSlot">
+
+            <div class="d-flex justify-content-between">
                 <button class="btn btn-danger mr-auto" type="submit">
                     <div class="fa fa-trash"></div>
                     <span>Da</span>
                 </button>
-{{--              TODO:fix this--}}
+
                 <x-adminlte-button type="button" theme="secondary" label="Ne" data-dismiss="modal"/>
-            </x-slot>
+            </div>
+
+            <x-slot name="footerSlot"></x-slot>
         </form>
     </x-adminlte-modal>
 
@@ -39,7 +42,7 @@
         <div class="col-md-6">
             <div class="card mb-4 shadow">
                 <div class="position-relative">
-                    <img src="https://fakeimg.pl/600x400" class="card-img-top rounded-top" alt="Food Image">
+                    <img src="{{asset($meal->image_url)}}" class="card-img-top rounded-top" alt="Food Image">
                     <div class="overlay"></div>
                     <h5 class="font-weight-bold px-3 pt-3">{{$meal->meal_name}}</h5>
                 </div>

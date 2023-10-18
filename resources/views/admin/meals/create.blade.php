@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="{{route('meals-store')}}" method="post">
+    <form action="{{route('meals-store')}}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -25,7 +25,7 @@
             <input type="text" class="form-control" id="price" name="price" placeholder="Unesite cijenu...">
         </div>
 
-        <x-adminlte-input-file name="image_url" label="Fotografija" placeholder="Otpremite fotografiju..."
+        <x-adminlte-input-file name="photo" label="Fotografija" placeholder="Otpremite fotografiju..."
                                disable-feedback/>
 
         <div class="mb-3">
