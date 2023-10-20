@@ -53,7 +53,7 @@ class OrderController extends Controller
         $user = $request->user();
 
         $order = new Order([
-            'status' => 'Pending',
+            'status_id' => 1,
             'delivery_date' => $request->delivery_date
         ]);
 
