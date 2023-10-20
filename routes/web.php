@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('meals/update/{id}', 'update')->name('meals-update');
         Route::post('meals/new', 'store')->name('meals-store');
         Route::delete('meals/{id}', 'destroy')->name('meals-destroy');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('orders', 'index')->name('orders-index');
+        Route::get('orders/all', 'all')->name('orders-all');
+        Route::get('orders/today/done', 'done')->name('orders-done');
+        Route::get('orders/{id}', 'show')->name('orders-show');
+        Route::post('orders/update/{id}', 'update')->name('orders-update');
     });
 });

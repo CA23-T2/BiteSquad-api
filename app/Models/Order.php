@@ -12,18 +12,22 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'order_date',
-        'status',
+        'status_id',
         'delivery_date',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function meals()
     {
         return $this->belongsToMany(Meal::class, 'meal_order')
             ->withPivot('quantity');
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 }

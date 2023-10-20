@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MealCategory;
+use App\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Meal;
@@ -15,6 +16,7 @@ class MealSeeder extends Seeder
      */
     public function run()
     {
+
         $categories = ['Topla jela', 'Dezerti', 'Salate', 'Hladna jela', 'Brza hrana'];
 
         for ($i = 1; $i <= 5; $i++) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('status_id')->constrained('statuses');
-            $table->string('delivery_date')->nullable();
+            $table->string('name');
+            $table->string('color')->nullable();
             $table->timestamps();
         });
+
+        Status::create(['name'=>'U obradi', 'color' => '#FFA500']);
+        Status::create(['name'=>'Gotovo', 'color' => '#0F0']);
     }
 
     /**
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('statuses');
     }
 };

@@ -304,23 +304,50 @@ return [
         ],
 
         [
-            'text'        => 'Početak',
-            'url'         => '/home',
-            'icon'        => 'far fa-fw fa fa-home',
+            'text' => 'Početak',
+            'url' => '/home',
+            'icon' => 'far fa-fw fa fa-home',
         ],
         [
-            'text'        => 'Narudžbine',
-            'url'         => '/orders',
-            'icon'        => 'far fa-fw fa fa-cubes',
-        ],
-        [
-            'text'        => 'Obroci',
-            'icon'        => 'far fa-fw fa fa-utensils',
+            'text' => 'Narudžbine',
+            'icon' => 'far fa-fw fa fa-cubes',
             'submenu' => [
                 [
-                    'text'        => 'Lista obroka',
-                    'url'         => '/meals',
-                    'icon'        => 'far fa-fw fa fa-list',
+                    'text' => 'Danas',
+                    'icon' => 'far fa-fw fa fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Narudžbine u obradi',
+                            'url' => '/orders',
+                            'icon' => 'far fa-fw fa fa-list',
+                        ],
+                        [
+                            'text' => 'Gotove narudžbine',
+                            'url' => '/orders/today/done',
+                            'icon' => 'far fa-fw fa fa-check',
+                        ],
+                    ]
+                ],
+                [
+                    'text' => 'Sve narudžbine',
+                    'url' => '/orders/all',
+                    'icon' => 'far fa-fw fa fa-list',
+                ],
+//                [
+//                    'text' => 'Nova narudžbina',
+//                    'url' => '/orders/new',
+//                    'icon' => 'far fa-fw fa fa-plus',
+//                ]
+            ]
+        ],
+        [
+            'text' => 'Obroci',
+            'icon' => 'far fa-fw fa fa-utensils',
+            'submenu' => [
+                [
+                    'text' => 'Lista obroka',
+                    'url' => '/meals',
+                    'icon' => 'far fa-fw fa fa-list',
                 ],
                 [
                     'text' => 'Novi obrok',
@@ -330,19 +357,19 @@ return [
             ]
         ],
         [
-            'text'        => 'Users',
-            'url'         => '/users',
-            'icon'        => 'far fa-fw fa fa-users',
+            'text' => 'Users',
+            'url' => '/users',
+            'icon' => 'far fa-fw fa fa-users',
         ],
         [
-            'text'        => 'Reviews',
-            'url'         => '/reviews',
-            'icon'        => 'far fa-fw fa fa-star',
+            'text' => 'Reviews',
+            'url' => '/reviews',
+            'icon' => 'far fa-fw fa fa-star',
         ],
         [
-            'text'        => 'Companies',
-            'url'         => '/companies',
-            'icon'        => 'far fa-fw fa fa-building',
+            'text' => 'Companies',
+            'url' => '/companies',
+            'icon' => 'far fa-fw fa fa-building',
         ],
     ],
 
