@@ -2,10 +2,10 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesResponsive', true)
 
-@section('title_prefix', 'Sve narudžbine - ')
+@section('title_prefix', 'Gotove narudžbine - ')
 
 @section('content_header')
-    <h1>Lista narudžbina</h1>
+    <h1>Gotove narudžbine</h1>
 @stop
 
 @php

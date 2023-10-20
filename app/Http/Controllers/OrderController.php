@@ -13,7 +13,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders =  Order::whereDay('delivery_date', now()->day)->get();
+        $all_orders =  Order::whereDay('delivery_date', now()->day)->get();
+        $orders = $all_orders->filter(function ($order) {
+            return $order->status->name === "U obradi";
+        });
 
         return view('admin.orders.index', compact('orders'));
     }

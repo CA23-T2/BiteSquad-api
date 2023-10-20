@@ -2,7 +2,11 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesResponsive', true)
 
-@section('title_prefix', 'Obrok - ')
+@section('title_prefix', 'Narudžbine u obradi - ')
+
+@section('content_header')
+    <h1>Narudžbina</h1>
+@stop
 
 @php
 

@@ -2,23 +2,15 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesResponsive', true)
 
-@section('title_prefix', 'Sve narudžbine - ')
+@section('title_prefix', 'Narudžbine u obradi - ')
 
 @section('content_header')
-    <h1>Lista narudžbina</h1>
+    <h1>Narudžbine u obradi</h1>
 @stop
 
-@php
-@endphp
+
+
 @section('content')
-{{--    <div class="my-3">--}}
-{{--        <a href="{{route('orders-create')}}">--}}
-{{--            <button type="button" class="btn btn-primary">--}}
-{{--                <span class="fa fa-plus"></span>--}}
-{{--                <span>Novi obrok</span>--}}
-{{--            </button>--}}
-{{--        </a>--}}
-{{--    </div>--}}
 
     <table id="datatable" class="table table-striped table-bordered"
            style="width:100%">
@@ -34,18 +26,35 @@
         </thead>
         <tbody>
         @foreach($orders as $order)
+
+            @php
+                $totalPrice = 0;
+
+                foreach ($order->meals as $meal) {
+                    $totalPrice += $meal->price * $meal->pivot->quantity;
+                }
+            @endphp
             <tr>
                 <td>{{$order->id}}</td>
                 <td>{{$order->user->first_name . " " . $order->user->last_name}}</td>
                 <td >
-                    <ul>
-                        @foreach($order->meals as $meal)
+                    <div>
+                        <ul>
+                            @foreach($order->meals as $meal)
+                                <li>
+                                    <a href="{{route('meals-show', $meal)}}">{{$meal->meal_name}}</a>
+                                    <span>{{" ⨯" . $meal->pivot->quantity}}</span>
+                                    <span>- {{$meal->price * $meal->pivot->quantity}}€</span>
+                                </li>
+                            @endforeach
                             <li>
-                                <a href="{{route('meals-show', $meal)}}">{{$meal->meal_name}}</a>
-                                <span>{{" ⨯" . $meal->pivot->quantity}}</span>
+                                <h6>
+                                    <b>Total: {{$totalPrice}}€</b>
+                                </h6>
                             </li>
-                        @endforeach
-                    </ul>
+                        </ul>
+
+                    </div>
                 </td>
                 <td>{{\Illuminate\Support\Carbon::parse($order->delivery_date)->toDateString()}}</td>
                 <td style="color: {{$order->status->color}}">{{$order->status->name}}</td>

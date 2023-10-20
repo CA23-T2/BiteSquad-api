@@ -5,7 +5,7 @@
 @section('title_prefix', 'Sve narudžbine - ')
 
 @section('content_header')
-    <h1>Lista narudžbina</h1>
+    <h1>Sve narudžbine</h1>
 @stop
 
 @php
