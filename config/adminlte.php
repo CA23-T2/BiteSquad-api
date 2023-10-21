@@ -361,16 +361,16 @@ return [
             'url' => '/users',
             'icon' => 'far fa-fw fa fa-users',
         ],
-        [
-            'text' => 'Reviews',
-            'url' => '/reviews',
-            'icon' => 'far fa-fw fa fa-star',
-        ],
-        [
-            'text' => 'Companies',
-            'url' => '/companies',
-            'icon' => 'far fa-fw fa fa-building',
-        ],
+//        [
+//            'text' => 'Reviews',
+//            'url' => '/reviews',
+//            'icon' => 'far fa-fw fa fa-star',
+//        ],
+//        [
+//            'text' => 'Companies',
+//            'url' => '/companies',
+//            'icon' => 'far fa-fw fa fa-building',
+//        ],
     ],
 
     /*

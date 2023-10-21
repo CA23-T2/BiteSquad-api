@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Meal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
+use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 
 class MealController extends Controller
 {
@@ -35,11 +35,27 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
+
         if ($request->hasFile('photo')) {
+
             $path = $request->file('photo')->store('photos');
             $meal = new Meal($request->all());
             $meal->image_url = $path;
+            $meal->category_id = 1; //TODO: mijenjaj ovo nakon sto zavrsis sa ai
             $meal->save();
+
+        } elseif ($request->photo_url) {
+
+            $url = $request->photo_url;
+            $client = new Client();
+            $fileContents = $client->get($url)->getBody();
+            $path = '/photos/'.Str::uuid().'.png';
+            Storage::put($path, $fileContents);
+            $meal = new Meal($request->all());
+            $meal->image_url = $path;
+            $meal->category_id = 1; //TODO: change this
+            $meal->save();
+
         } else {
             Meal::create($request->all());
         }

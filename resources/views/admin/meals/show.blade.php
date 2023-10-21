@@ -39,7 +39,7 @@
 
 
     <div class="w-100 mt-3">
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class="row mr-3">
                 <div class="col-md-12">
                     <div class="card mb-4 shadow">
@@ -65,16 +65,22 @@
                                 <h6 class="card-subtitle mb-2 font-weight-bold">Rating:</h6>
                                 @php
                                     $zbir = 0;
-                                    foreach ($meal->ratings as $rating) {
+                                    if(sizeof($meal->ratings) > 0) {
+                                        foreach ($meal->ratings as $rating) {
                                         $zbir += $rating->rating;
+                                        }
+                                        $zbir /= sizeOf($meal->ratings);
                                     }
-                                    $zbir /= sizeOf($meal->ratings);
                                 @endphp
                                 <div class="d-flex align-items-center">
-                                    <div>{{ $zbir }}</div>
+                                    @if($zbir > 0)
+                                        <div>{{ $zbir }}</div>
+                                        <i class="fa fa-star" style="color: #d98d33"></i>
+                                    @endif
 
-                                    <i class="fa fa-star" style="color: #d98d33"></i>
-
+                                    @if($zbir === 0)
+                                        <div>Nema ocjena.</div>
+                                    @endif
                                 </div>
 
                             </div>
