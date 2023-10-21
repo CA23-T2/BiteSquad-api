@@ -45,7 +45,7 @@ class MealController extends Controller
             $meal->save();
 
         } elseif ($request->photo_url) {
-
+            dd('works');
             $url = $request->photo_url;
             $client = new Client();
             $fileContents = $client->get($url)->getBody();
@@ -100,6 +100,24 @@ class MealController extends Controller
             $meal->dietary_restrictions = $request->dietary_restrictions;
 
             $meal->update();
+
+        } elseif ($request->photo_url) {
+
+            $url = $request->photo_url;
+            $client = new Client();
+            $fileContents = $client->get($url)->getBody();
+            $path = 'photos/'.Str::uuid().'.png';
+
+            Storage::delete($meal->image_url);
+            Storage::put($path, $fileContents);
+
+            $meal->meal_name = $request->meal_name;
+            $meal->description = $request->description;
+            $meal->price = $request->price;
+            $meal->image_url = $path;
+            $meal->dietary_restrictions = $request->dietary_restrictions;
+            $meal->update();
+
         } else {
             $meal->update($request->all());
         }
