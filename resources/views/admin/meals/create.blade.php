@@ -101,7 +101,6 @@
 
         const updatePreview = (e) => {
 
-            console.log(e)
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -156,10 +155,10 @@
                 <b>Mod</b>
                 <button type="button"
                         id="toggleButton"
-                        class="btn btn-outline-secondary w-100"
+                        class="btn btn-outline-secondary w-100 mt-2 mb-3"
                         onclick="toggleContent()">Mod - AI</button>
 
-                <div id="photoArea" class="mt-2">
+                <div id="photoArea">
                     <div class="mb-2">
                         <label for="promptField">Upit</label>
                         <input class="form-control" id="promptField" placeholder="Opis fotografije" />
@@ -186,11 +185,5 @@
         </div>
         <button type="submit" class="btn btn-success" style="width: 100px">Kreiraj</button>
     </form>
-@stop
-
-@section('js')
-    <script>
-
-    </script>
 @stop
 
