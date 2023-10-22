@@ -22,25 +22,40 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('profile_picture')
                 ->default('https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg');
-            $table->enum('role', ['Guest', 'CompanyEmployee', 'Employee', 'CompanyAdmin', 'SuperAdmin'])->default('Guest');
             $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreignId('role_id')->default(1)->constrained('roles');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
 
-        $admin = new User([
-            'username' => 'Administrator',
-            'email' => 'admin@example.com',
-            'role' => 'SuperAdmin',
+        User::create([
+            'username' => 'Customer',
+            'email' => 'customer@example.com',
+            'role_id' => 1,
             'first_name' => 'Lorem',
             'last_name' => 'Ipsum',
-            'password' => Hash::make('tinjalica123'),
+            'password' => Hash::make('password'),
         ]);
 
-        $admin->save();
+        User::create([
+            'username' => 'Employee',
+            'email' => 'employee@example.com',
+            'role_id' => 2,
+            'first_name' => 'Lorem',
+            'last_name' => 'Ipsum',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'username' => 'Administrator',
+            'email' => 'admin@example.com',
+            'role_id' => 3,
+            'first_name' => 'Lorem',
+            'last_name' => 'Ipsum',
+            'password' => Hash::make('password'),
+        ]);
     }
 
     /**

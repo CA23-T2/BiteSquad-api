@@ -26,7 +26,6 @@ class AuthController extends Controller
             return new JsonResponse($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
         $user = new User();
 
         $user->username = $request->username;
