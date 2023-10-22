@@ -313,24 +313,14 @@ return [
             'icon' => 'far fa-fw fa fa-cubes',
             'submenu' => [
                 [
-                    'text' => 'Danas',
-                    'icon' => 'far fa-fw fa fa-folder',
-                    'submenu' => [
-                        [
-                            'text' => 'Narudžbine u obradi',
-                            'url' => '/orders',
-                            'icon' => 'far fa-fw fa fa-list',
-                        ],
-                        [
-                            'text' => 'Gotove narudžbine',
-                            'url' => '/orders/today/done',
-                            'icon' => 'far fa-fw fa fa-check',
-                        ],
-                    ]
+                    'text' => 'Današnje Narudžbine',
+                    'url' => '/orders/today',
+                    'icon' => 'far fa-fw fa fa-list',
+                    
                 ],
                 [
                     'text' => 'Sve narudžbine',
-                    'url' => '/orders/all',
+                    'url' => '/orders',
                     'icon' => 'far fa-fw fa fa-list',
                 ],
 //                [
