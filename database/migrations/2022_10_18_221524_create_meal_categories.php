@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\MealCategory;
+use Faker\Factory as Faker;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +19,20 @@ return new class extends Migration
             $table->string('description');
             $table->timestamps();
         });
+
+        $categories = ['Topla jela', 'Dezerti', 'Salate', 'Hladna jela', 'Brza hrana'];
+
+        for ($i = 1; $i <= 5; $i++) {
+
+            $faker = Faker::create();
+            MealCategory::create([
+                "name" => $categories[$i - 1],
+                "description" => $faker->sentence,
+            ]);
+        }
     }
+
+
 
     /**
      * Reverse the migrations.
