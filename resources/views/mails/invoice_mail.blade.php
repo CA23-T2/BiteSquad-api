@@ -33,7 +33,7 @@
 </head>
 <body>
 <div class="content">
-    <img height="60" src="{{ $message->embed(asset('BiteSquad_logo.png')) }}" alt="Vaš Logo" class="logo">
+    <img height="60" src="{{ $message->embed(url('/BiteSquad_logo.png')) }}" alt="Vaš Logo" class="logo">
     <h1 style="padding: 0 10%;">Priložen Račun</h1>
     <div class="message">
         Poštovani/a,
