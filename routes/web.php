@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(InvoiceController::class)->group(function () {
-        Route::get('invoice/month/current', 'show')->name('invoice-show');
+        Route::get('invoices', 'index')->name('invoice-index');
+        Route::get('invoice/month/current', 'newInvoice')->name('invoice-newInvoice');
     });
 });

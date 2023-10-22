@@ -361,6 +361,11 @@ return [
             'url' => '/users',
             'icon' => 'far fa-fw fa fa-users',
         ],
+        [
+            'text' => 'Fakture',
+            'url' => '/invoices',
+            'icon' => 'far fa-fw fa fa-file-invoice',
+        ],
 //        [
 //            'text' => 'Reviews',
 //            'url' => '/reviews',
