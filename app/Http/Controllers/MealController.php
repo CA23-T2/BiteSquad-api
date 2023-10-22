@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
+use App\Models\MealCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
@@ -27,7 +28,8 @@ class MealController extends Controller
     public function create()
     {
 
-        return view('admin.meals.create');
+        $categories = MealCategory::all();
+        return view('admin.meals.create', compact('categories'));
     }
 
     /**
@@ -35,17 +37,16 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-
         if ($request->hasFile('photo')) {
 
             $path = $request->file('photo')->store('photos');
             $meal = new Meal($request->all());
             $meal->image_url = $path;
-            $meal->category_id = 1; //TODO: mijenjaj ovo nakon sto zavrsis sa ai
+            $meal->category_id = $request->category_id;
             $meal->save();
 
         } elseif ($request->photo_url) {
-            dd('works');
+
             $url = $request->photo_url;
             $client = new Client();
             $fileContents = $client->get($url)->getBody();
@@ -53,7 +54,7 @@ class MealController extends Controller
             Storage::put($path, $fileContents);
             $meal = new Meal($request->all());
             $meal->image_url = $path;
-            $meal->category_id = 1; //TODO: change this
+            $meal->category_id = $request->category_id;
             $meal->save();
 
         } else {
@@ -78,7 +79,12 @@ class MealController extends Controller
     public function edit(string $id)
     {
         $meal = Meal::findOrFail($id);
-        return view('admin.meals.edit', compact('meal'));
+        $categories = MealCategory::all();
+
+        $data['meal'] = $meal;
+        $data['categories'] = $categories;
+
+        return view('admin.meals.edit', $data);
     }
 
     /**
@@ -97,12 +103,12 @@ class MealController extends Controller
             $meal->meal_name = $request->meal_name;
             $meal->description = $request->description;
             $meal->price = $request->price;
+            $meal->category_id = $request->category_id;
             $meal->dietary_restrictions = $request->dietary_restrictions;
 
             $meal->update();
 
         } elseif ($request->photo_url) {
-
             $url = $request->photo_url;
             $client = new Client();
             $fileContents = $client->get($url)->getBody();
@@ -115,6 +121,7 @@ class MealController extends Controller
             $meal->description = $request->description;
             $meal->price = $request->price;
             $meal->image_url = $path;
+            $meal->category_id = $request->category_id;
             $meal->dietary_restrictions = $request->dietary_restrictions;
             $meal->update();
 

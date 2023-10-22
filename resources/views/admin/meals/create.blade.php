@@ -140,7 +140,7 @@
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Cijena</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Unesite cijenu...">
+                    <input type="number" step="0.01" min="0" class="form-control" id="price" name="price" placeholder="Unesite cijenu...">
                 </div>
 
                 <div class="mb-3">
@@ -149,6 +149,14 @@
                            placeholder="Posno, slatko, sadrzi gluten, vegan...">
                 </div>
 
+                <div>
+                    <label for="category">Kategorija</label>
+                    <select class="form-control" name="category_id" id="category">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-6 col-12 mb-5">

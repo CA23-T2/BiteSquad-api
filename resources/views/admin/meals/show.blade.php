@@ -50,19 +50,23 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-4">
-                                <h6 class="card-subtitle mb-2 font-weight-bold">Description:</h6>
+                                <h6 class="card-subtitle mb-2 font-weight-bold">Opis:</h6>
                                 <p class="card-text">{{ $meal->description }}</p>
                             </div>
                             <div class="mb-4">
-                                <h6 class="card-subtitle mb-2 font-weight-bold">Price:</h6>
+                                <h6 class="card-subtitle mb-2 font-weight-bold">Cijena:</h6>
                                 <p class="card-text">{{ $meal->price }}</p>
                             </div>
                             <div class="mb-4">
-                                <h6 class="card-subtitle mb-2 font-weight-bold">Dietary Restrictions:</h6>
+                                <h6 class="card-subtitle mb-2 font-weight-bold">Karakteristike:</h6>
                                 <p class="card-text">{{ $meal->dietary_restrictions }}</p>
                             </div>
                             <div class="mb-4">
-                                <h6 class="card-subtitle mb-2 font-weight-bold">Rating:</h6>
+                                <h6 class="card-subtitle mb-2 font-weight-bold">Kategorija:</h6>
+                                <p class="card-text">{{ $meal->category->name }}</p>
+                            </div>
+                            <div class="mb-4">
+                                <h6 class="card-subtitle mb-2 font-weight-bold">Prosječna ocjena:</h6>
                                 @php
                                     $zbir = 0;
                                     if(sizeof($meal->ratings) > 0) {
@@ -90,7 +94,13 @@
             </div>
             <div class="row w-50">
                 <div class="col-md-12">
-                    <div class="card mb-4 sshadow">
+                    <div class="card mb-4 shadow" style="min-height: 100px">
+                        <h5 class="pl-3 pt-2"><b>Ocjene</b></h5>
+                        <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+                            @if(sizeof($meal->ratings) === 0)
+                                <em>Nema ocjena.</em>
+                            @endif
+                        </div>
                         @foreach ($meal->ratings as $rating)
                             <div class="row">
                                 <div class="col-md-12">
