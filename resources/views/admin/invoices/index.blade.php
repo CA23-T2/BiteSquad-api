@@ -10,14 +10,14 @@
 
 
 @section('content')
-{{--    <div class="my-3">--}}
-{{--        <a href="{{route('meals-create')}}">--}}
-{{--            <button type="button" class="btn btn-primary">--}}
-{{--                <span class="fa fa-plus"></span>--}}
-{{--                <span>Novi obrok</span>--}}
-{{--            </button>--}}
-{{--        </a>--}}
-{{--    </div>--}}
+    <div class="my-3">
+        <a href="{{route('invoice-newInvoice')}}">
+            <button type="button" class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                <span>Nova faktura za tekuci mjesec</span>
+            </button>
+        </a>
+    </div>
 
     <table id="datatable" class="table table-striped table-bordered"
            style="width:100%">

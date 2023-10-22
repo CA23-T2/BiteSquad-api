@@ -47,6 +47,11 @@ Route::middleware(['auth', 'role:all'])->group(function () {
         Route::post('orders/update/{id}', 'update')->name('orders-update');
     });
 
+    Route::controller(InvoiceController::class)->group(function () {
+        Route::get('invoices', 'index')->name('invoice-index');
+        Route::get('invoice/new', 'newInvoice')->name('invoice-newInvoice');
+    });
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -62,10 +67,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::delete('users/{id}', 'destroy')->name('users-destroy');
     });
 
-    Route::controller(InvoiceController::class)->group(function () {
-        Route::get('invoices', 'index')->name('invoice-index');
-        Route::get('invoice/month/current', 'newInvoice')->name('invoice-newInvoice');
-    });
 
     Route::controller(SettingsController::class)->group(function () {
         Route::get('settings', 'index')->name('settings-index');
