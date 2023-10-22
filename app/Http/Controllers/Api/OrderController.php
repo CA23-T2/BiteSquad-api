@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Meal;
 use App\Models\Order;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,17 +39,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // Uncomment to enable time restriction for orders
-//        if(intval(date('H')) >= 9) {
-//
-//            return new JsonResponse([
-//                "success" => false,
-//                "data" => [],
-//                "message" => "Sorry, orders are closed for today, please order before 9 AM."
-//            ]);
-//        }
+        if(intval(date('H')) >= Setting::where('setting', 'order_time_restriction')->first()->value) {
 
-//        dd($request->delivery_date);
+            $rTime = Setting::where('setting', 'order_time_restriction')->first()->value;
+
+            if(intval(date('H')) >= $rTime) {
+
+                return new JsonResponse([
+                    "success" => false,
+                    "data" => [],
+                    "message" => "Sorry, orders are closed for today, please order before ". $rTime .":00h"
+                ]);
+            }
+        }
 
         $user = $request->user();
 
@@ -104,15 +107,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Uncomment to enable time restriction for orders
-//        if(intval(date('H')) >= 9) {
-//
-//            return new JsonResponse([
-//                "success" => false,
-//                "data" => [],
-//                "message" => "Sorry, orders are closed for today, please order before 9 AM."
-//            ]);
-//        }
+        $rTime = Setting::where('setting', 'order_time_restriction')->first()->value;
+
+        if(intval(date('H')) >= $rTime) {
+
+            return new JsonResponse([
+                "success" => false,
+                "data" => [],
+                "message" => "Sorry, orders are closed for today, please order before ". $rTime .":00h"
+            ]);
+        }
 
         $orders = $request->user()->orders;
 
@@ -154,6 +158,18 @@ class OrderController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
+
+        $rTime = Setting::where('setting', 'order_time_restriction')->first()->value;
+
+        if(intval(date('H')) >= $rTime) {
+
+            return new JsonResponse([
+                "success" => false,
+                "data" => [],
+                "message" => "Sorry, orders are closed for today, please order before ". $rTime .":00h"
+            ]);
+        }
+
         $orders = $request->user()->orders;
 
         $foundOrder = $orders->where('id', $id)->first();

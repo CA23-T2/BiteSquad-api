@@ -3,6 +3,7 @@
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('invoice/month/current', 'newInvoice')->name('invoice-newInvoice');
     });
 
+    Route::controller(SettingsController::class)->group(function () {
+        Route::get('settings', 'index')->name('settings-index');
+        Route::patch('settings/{id}/update', 'update')->name('settings-update');
+    });
 });
 
 

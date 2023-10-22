@@ -366,6 +366,11 @@ return [
             'url' => '/invoices',
             'icon' => 'far fa-fw fa fa-file-invoice',
         ],
+        [
+            'text' => 'Podesavanja',
+            'url' => '/settings',
+            'icon' => 'far fa-fw fa fa-cog',
+        ],
 //        [
 //            'text' => 'Reviews',
 //            'url' => '/reviews',
