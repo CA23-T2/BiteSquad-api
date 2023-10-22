@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
@@ -50,5 +51,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('orders/today/done', 'done')->name('orders-done');
         Route::get('orders/{id}', 'show')->name('orders-show');
         Route::post('orders/update/{id}', 'update')->name('orders-update');
+    });
+
+    Route::controller(InvoiceController::class)->group(function () {
+        Route::get('invoice/month/current', 'show')->name('invoice-show');
     });
 });
