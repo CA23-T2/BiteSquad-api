@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,7 +12,13 @@ use Illuminate\Support\Str;
 class InvoiceController extends Controller
 {
 
-    public function show () {
+    public function index() {
+        $invoices = Invoice::all();
+
+        return view('admin.invoices.index', compact('invoices'));
+    }
+
+    public function newInvoice () {
 
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd = Carbon::now()->endOfMonth();
@@ -47,15 +54,18 @@ class InvoiceController extends Controller
             ];
         }
 
+        $path = 'pdfs/'.Str::uuid().'.pdf';
+        $invoice = new Invoice();
+        $invoice->pdf_link = $path;
+        $invoice->save();
+
         $total = array_sum(array_column($pricesPerDay, 'total_price'));
 
         $result['prices_per_day'] = $pricesPerDay;
         $result['total'] = $total;
-
+        $result['invoiceNumber'] = date("Y").'/'.$invoice->id;
 
         $pdf = Pdf::loadView('admin.pdf.invoice', $result);
-
-        $path = 'pdfs/'.Str::uuid().'.pdf' ;
 
         $pdf->save(public_path($path));
 

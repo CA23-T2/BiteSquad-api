@@ -106,8 +106,8 @@
         </thead>
         <tbody>
         <tr>
-            <td style="text-align: center">2023/5</td>
-            <td style="text-align: center">5/1/2014</td>
+            <td style="text-align: center">{{$invoiceNumber}}</td>
+            <td style="text-align: center">{{date("m/Y")}}</td>
         </tr>
         </tbody>
     </table>
