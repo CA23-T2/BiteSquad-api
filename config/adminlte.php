@@ -357,9 +357,20 @@ return [
             ]
         ],
         [
-            'text' => 'Users',
-            'url' => '/users',
+            'text' => 'Korisnici',
             'icon' => 'far fa-fw fa fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Lista korisnika',
+                    'url' => '/users',
+                    'icon' => 'far fa-fw fa fa-list',
+                ],
+                [
+                    'text' => 'Novi korisnik',
+                    'url' => '/users/new',
+                    'icon' => 'far fa-fw fa fa-plus',
+                ]
+            ]
         ],
         [
             'text' => 'Fakture',

@@ -53,9 +53,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('users', 'index')->name('users-index');
+        Route::get('users/new', 'create')->name('users-create');
+        Route::post('users/new', 'store')->name('users-store');
+
+        Route::get('users/edit/{id}', 'edit')->name('users-edit');
         Route::post('users/update/{id}', 'update')->name('users-update');
         Route::get('users/{id}', 'show')->name('users-show');
-        Route::delete('users', 'destroy')->name('users-destroy');
+        Route::delete('users/{id}', 'destroy')->name('users-destroy');
     });
 
     Route::controller(InvoiceController::class)->group(function () {
