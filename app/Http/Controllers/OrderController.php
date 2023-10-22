@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -11,38 +12,36 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $all_orders =  Order::whereDay('delivery_date', now()->day)->get();
-        $orders = $all_orders->filter(function ($order) {
-            return $order->status->name === "U obradi";
-        });
-
-        return view('admin.orders.index', compact('orders'));
-    }
+   
 
     /**
      * Show the form for creating a new resource.
      */
-    public function all()
+    public function index()
     {
         $orders =  Order::all();
 
-        return view('admin.orders.all', compact('orders'));
+        $statuses = Status::all();
+
+        $data['orders'] = $orders;
+        $data['statuses'] = $statuses;
+
+        return view('admin.orders.index', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function done()
+    public function today()
     {
 
-        $all_orders = Order::whereDay('delivery_date', now()->day)->get();
-        $orders = $all_orders->filter(function ($order) {
-            return $order->status->name === "Gotovo";
-        });
+        $orders = Order::whereDay('delivery_date', now()->day)->get();
+        $statuses = Status::all();
 
-        return view('admin.orders.done', compact('orders'));
+        $data['orders'] = $orders;
+        $data['statuses'] = $statuses;
+
+        return view('admin.orders.today', $data);
     }
 
     /**
@@ -51,8 +50,11 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order = Order::findOrFail($id);
+        $statuses = Status::all();
+        $data['order'] = $order;
+        $data['statuses'] = $statuses;
 
-        return view('admin.orders.show', compact('order'));
+        return view('admin.orders.show', $data);
     }
 
     /**
@@ -70,9 +72,26 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $order->update(['status_id' => 2]);
-
-        return redirect()->back();
+        $order->update(['status_id' => $request->status_id]);
+        // return $request->fromWhere;
+        // return redirect()->route('orders-index');
+        
+        switch ($request->fromWhere) {  
+            case 'show':
+                return redirect()->route('orders-index');
+                break;
+            case 'index':
+                return redirect()->route('orders-index');
+                break;
+            case 'today':
+                return redirect()->route('orders-today');
+                break;
+            
+            default:
+            return redirect()->route('orders-index');
+                break;
+        }
+       
     }
 
     /**

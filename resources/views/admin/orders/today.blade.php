@@ -2,15 +2,16 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesResponsive', true)
 
-@section('title_prefix', 'Sve narudžbine - ')
+@section('title_prefix', 'Gotove narudžbine - ')
 
 @section('content_header')
-    <h1>Sve narudžbine</h1>
+    <h1>Današnje narudžbine</h1>
 @stop
 
 @php
 @endphp
 @section('content')
+
 
     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -20,7 +21,7 @@
                 <th>Obroci</th>
                 <th>Datum dostave</th>
                 <th>Status</th>
-                <th>Options</th>
+                <th>Opcije</th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +43,7 @@
                     <td>
                         <form action="{{ route('orders-update', $order) }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <input hidden value="index" name="fromWhere" type="text">
-
+                            <input hidden value="today" name="fromWhere" type="text">
                             <select onchange="changeColor({{ $statuses }}, {{ $order->id }}), this.form.submit()" class="form-control "
                                 style="color: {{ $order->status->color }}; border-Color: {{ $order->status->color }}" name="status_id" id="{{ $order->id }}">
                                 <option value="" selected disabled hidden style="color: {{ $order->status->color }}" value="{{ $order->status->id }}">{{ $order->status->name }}
@@ -57,9 +57,6 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-center">
-
-
-
                             <a href="{{ route('orders-show', $order) }}" class="btn btn-outline-primary ml-2 mr-2"><i class="fas fa-eye"></i></a>
 
                         </div>
@@ -74,7 +71,7 @@
                 <th>Obroci</th>
                 <th>Datum dostave</th>
                 <th>Status</th>
-                <th>Options</th>
+                <th>Opcije</th>
             </tr>
         </tfoot>
     </table>
