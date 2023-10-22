@@ -19,21 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->group(function () {
-
-    Route::controller(UserController::class)->group(function () {
-        Route::get('users', 'index')->name('users-index');
-        Route::post('users/update/{id}', 'update')->name('users-update');
-        Route::get('users/{id}', 'show')->name('users-show');
-        Route::delete('users', 'destroy')->name('users-destroy');
-    });
+Route::middleware(['auth', 'role:all'])->group(function () {
 
     Route::controller(MealController::class)->group(function () {
         Route::get('meals', 'index')->name('meals-index');
@@ -53,8 +46,22 @@ Route::middleware(['auth'])->group(function () {
         Route::post('orders/update/{id}', 'update')->name('orders-update');
     });
 
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('users', 'index')->name('users-index');
+        Route::post('users/update/{id}', 'update')->name('users-update');
+        Route::get('users/{id}', 'show')->name('users-show');
+        Route::delete('users', 'destroy')->name('users-destroy');
+    });
+
     Route::controller(InvoiceController::class)->group(function () {
         Route::get('invoices', 'index')->name('invoice-index');
         Route::get('invoice/month/current', 'newInvoice')->name('invoice-newInvoice');
     });
+
 });
+
+
