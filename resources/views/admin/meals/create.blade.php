@@ -29,7 +29,7 @@
                 },
                 body: JSON.stringify({
                     prompt: document.getElementById('promptField').value,
-                    size: '256x256'
+                    size: "{{App\Models\Setting::where('setting', 'dall-e_output_resolution')->first()->value}}"
                 })
             };
 
