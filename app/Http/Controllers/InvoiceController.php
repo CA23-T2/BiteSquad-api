@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
@@ -69,8 +72,9 @@ class InvoiceController extends Controller
 
         $pdf->save(public_path($path));
 
+        Mail::to(Setting::where('setting', 'invoice_email_destination')->first()->value)->send(new InvoiceMail($path));
+
         return redirect(asset($path));
 
-//        return view('admin.pdf.invoice', $result);
     }
 }
