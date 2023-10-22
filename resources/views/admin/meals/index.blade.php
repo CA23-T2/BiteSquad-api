@@ -28,6 +28,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Kategorija</th>
             <th>Opis</th>
             <th>Cijena</th>
             <th>Karakteristike</th>
@@ -39,6 +40,7 @@
             <tr>
                 <td>{{$meal->id}}</td>
                 <td>{{$meal->meal_name}}</td>
+                <td>{{$meal->category->name}}</td>
                 <td>{{$meal->description}}</td>
                 <td>{{$meal->price}}</td>
                 <td>{{$meal->dietary_restrictions}}</td>
@@ -80,6 +82,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Kategorija</th>
             <th>Opis</th>
             <th>Cijena</th>
             <th>Karakteristike</th>

@@ -39,7 +39,7 @@ class MealSeeder extends Seeder
                 "meal_name" => implode(' ', $faker->words(3)),
                 "description" => $faker->sentence,
                 "price" => $faker->randomFloat(2, 0.01, 29.99),
-                "image_url" => "https://fakeimg.pl/600x400",
+                "image_url" => '/512x512.svg',
                 "dietary_restrictions" => implode(', ', $faker->words(5))
             ]);
 

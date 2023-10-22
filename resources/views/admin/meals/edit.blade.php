@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title_prefix', 'Novi obrok - ')
+@section('title_prefix', 'Izmjena obroka - ')
 
 @section('content_header')
-    <h1>Novi obrok</h1>
+    <h1>Izmjena obroka</h1>
 @stop
 
 @section('js')
@@ -140,7 +140,7 @@
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Cijena</label>
-                    <input type="number" class="form-control" id="price" name="price" value="{{$meal->price}}" placeholder="Unesite cijenu...">
+                    <input type="number" step="0.01" min="0" class="form-control" id="price" name="price" value="{{$meal->price}}" placeholder="Unesite cijenu...">
                 </div>
 
                 <div class="mb-3">
@@ -149,6 +149,14 @@
                            placeholder="Posno, slatko, sadrzi gluten, vegan...">
                 </div>
 
+                <div>
+                    <label for="category">Kategorija</label>
+                    <select class="form-control" name="category_id" id="category">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" {{$category->id === $meal->category_id ? 'selected' : null}}>{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-6 col-12 mb-5">
@@ -164,7 +172,7 @@
                         <input class="form-control" id="promptField" placeholder="Opis fotografije" />
                     </div>
                     <div>
-                        <x-adminlte-input id="url_field" type="text" name="photo_url" label="Link" value="{{url($meal->image_url)}}" placeholder="URL nije dostupan..." readonly/>
+                        <x-adminlte-input id="url_field" type="text" name="photo_url" label="Link" placeholder="URL nije dostupan..." readonly/>
                     </div>
                     <div>
                         <b>Prikaz fotografije</b>
@@ -183,7 +191,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success" style="width: 100px">Kreiraj</button>
+        <button type="submit" class="btn btn-success" style="width: 100px">Ažuriraj</button>
     </form>
 @stop
 
