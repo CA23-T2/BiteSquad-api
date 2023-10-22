@@ -26,7 +26,7 @@ class InvoiceController extends Controller
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd = Carbon::now()->endOfMonth();
 
-        $orders = Order::where('status_id', 2)
+        $orders = Order::where('status_id', 7)
         ->whereDate('created_at', '>=', $currentMonthStart)
             ->whereDate('created_at', '<=', $currentMonthEnd)
             ->with('meals')
