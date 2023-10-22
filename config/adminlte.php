@@ -257,7 +257,7 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => false,
-    'password_reset_url' => false,
+    'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
 
@@ -366,6 +366,11 @@ return [
             'text' => 'Fakture',
             'url' => '/invoices',
             'icon' => 'far fa-fw fa fa-file-invoice',
+        ],
+        [
+            'text' => 'Podesavanja',
+            'url' => '/settings',
+            'icon' => 'far fa-fw fa fa-cog',
         ],
 //        [
 //            'text' => 'Reviews',
