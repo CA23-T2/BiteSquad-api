@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('mails.invoice_mail');
+    return redirect('/login');
 });
 
 Auth::routes(['register' => false]);
