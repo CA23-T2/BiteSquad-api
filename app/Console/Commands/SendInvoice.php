@@ -1,33 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
 use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Setting;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class InvoiceController extends Controller
+class SendInvoice extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'invoice:send';
 
-    public function index() {
-        $invoices = Invoice::all();
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Send invoice to the company owner';
 
-        return view('admin.invoices.index', compact('invoices'));
-    }
-
-    public function newInvoice () {
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
 
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd = Carbon::now()->endOfMonth();
 
         $orders = Order::where('status_id', 2)
-        ->whereDate('created_at', '>=', $currentMonthStart)
+            ->whereDate('created_at', '>=', $currentMonthStart)
             ->whereDate('created_at', '<=', $currentMonthEnd)
             ->with('meals')
             ->get();
@@ -72,9 +83,7 @@ class InvoiceController extends Controller
 
         $pdf->save(public_path($path));
 
-        Mail::to(Setting::where('setting', 'invoice_email_destination')->first()->value)->send(new InvoiceMail($path));
-
-        return redirect(asset($path));
+        Mail::to(Setting::where('setting', 'invoice_email_destination')->first()->value)->send(new InvoiceMail(url($path)));
 
     }
 }
