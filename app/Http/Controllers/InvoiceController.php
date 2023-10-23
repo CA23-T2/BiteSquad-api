@@ -6,6 +6,7 @@ use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Setting;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,7 +27,7 @@ class InvoiceController extends Controller
         $currentMonthStart = Carbon::now()->startOfMonth();
         $currentMonthEnd = Carbon::now()->endOfMonth();
 
-        $orders = Order::where('status_id', 7)
+        $orders = Order::where('status_id', Status::where('name', 'Gotovo')->first()->id)
         ->whereDate('created_at', '>=', $currentMonthStart)
             ->whereDate('created_at', '<=', $currentMonthEnd)
             ->with('meals')
